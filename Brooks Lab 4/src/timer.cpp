@@ -69,6 +69,8 @@ TCCR4A &= ~(1 << WGM41);
 TCCR4B |= (1 << WGM42);
 TCCR4B &= ~(1<< WGM43);
 
+
+
 TCCR4B |= (1<< CS40);
 TCCR4B & ~( 1<<CS41 | 1<<CS42);
 

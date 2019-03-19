@@ -2,7 +2,7 @@
 #include "pwm.h"
 #include <avr/interrupt.h>
 
-void updateDutuCycle(){
+void updateDutyCycle(){
     OCR3A = 255*( ADCL + (ADCH << 0x08) /1024);
     OCR4A = 255*( 1 - (ADCL + (ADCH << 0x08) /1024) );
 }
