@@ -19,7 +19,7 @@ TCCR1B &= ~(1<< WGM13);
 
 /* This delays the program an amount specified by unsigned int delay.
 */
-void delayUs(unsigned int delay){
+void T1delayUs(unsigned int delay){
   TIFR1 |= (1 << OCF1A); // sets the flag down
 TCNT1 = 0;
 unsigned int Count = 0;
@@ -33,3 +33,60 @@ unsigned int Count = 0;
     }
 
 }
+
+void initTimer3(){
+TCCR3A &= ~(1 << WGM30); // Set timer to be in CTC mode 
+TCCR3A &= ~(1 << WGM31);
+TCCR3B |= (1 << WGM32);
+TCCR3B &= ~(1<< WGM33);
+
+TCCR3B |= (1 << CS30); // Sets the prescaler to 1
+  TCCR3B &= ~(1<< CS31);
+  TCCR3B &= ~(1<< CS32);
+
+  OCR3A = 16;     
+}
+
+void T3delayUs(unsigned int delay){
+  TIFR3 |= (1 << OCF3A); // sets the flag down
+TCNT3 = 0;
+unsigned int Count = 0;
+
+
+    while(Count < delay){                //Runs until we get the delay we want 
+        if(TIFR3 & (1 << OCF3A)){           
+            Count++;
+            TIFR3 |= (1 << OCF3A);          
+        }
+    }
+
+}
+
+
+void initTimer4(){
+TCCR4A &= ~(1 << WGM40); // Set timer to be in CTC mode 
+TCCR4A &= ~(1 << WGM41);
+TCCR4B |= (1 << WGM42);
+TCCR4B &= ~(1<< WGM43);
+
+TCCR4B |= (1<< CS40);
+TCCR4B & ~( 1<<CS41 | 1<<CS42);
+
+OCR4A = 16;     
+}
+
+void T4delayUs(unsigned int delay){
+  TIFR4 |= (1 << OCF4A); // sets the flag down
+TCNT4 = 0;
+unsigned int Count = 0;
+
+
+    while(Count < delay){                //Runs until we get the delay we want 
+        if(TIFR4 & (1 << OCF4A)){           
+            Count++;
+            TIFR4 |= (1 << OCF4A);          
+        }
+    }
+
+}
+
